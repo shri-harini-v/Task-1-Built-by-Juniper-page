@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Testimonials</title>
+  <style>
+   .testimonial-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+}
+
+.testimonial-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.testimonial-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.testimonial {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.prev { left: -50px; }
+.next { right: -50px; }
+
+.testimonial-dots {
+  margin-top: 20px;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: #111;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="testimonial-section">
+  <h2>What Our Clients Say</h2>
+  <div class="testimonial-container">
+    <button class="prev">‹</button>
+    
+    <div class="testimonial-wrapper">
+      <div class="testimonial-track">
+        <div class="testimonial">
+          <p>"Amazing experience!"</p>
+          <span>- John</span>
+        </div>
+        <div class="testimonial">
+          <p>"Professional and reliable."</p>
+          <span>- Sarah</span>
+        </div>
+        <div class="testimonial">
+          <p>"Highly recommended!"</p>
+          <span>- Alex</span>
+        </div>
+      </div>
+    </div>
+    
+    <button class="next">›</button>
+  </div>
+
+  <div class="testimonial-dots">
+    <span class="dot active" data-index="0"></span>
+    <span class="dot" data-index="1"></span>
+    <span class="dot" data-index="2"></span>
+  </div>
+</div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    let currentIndex = 0;
+    const $track = $('.testimonial-track');
+    const $items = $('.testimonial');
+    const total = $items.length;
+
+    function updateSlider(index) {
+      const offset = -index * 100;
+      $track.css('transform', `translateX(${offset}%)`);
+      $('.dot').removeClass('active');
+      $(`.dot[data-index="${index}"]`).addClass('active');
+    }
+
+    $('.next').click(function () {
+      if (currentIndex < total - 1) {
+        currentIndex++;
+        updateSlider(currentIndex);
+      }
+    });
+
+    $('.prev').click(function () {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider(currentIndex);
+      }
+    });
+
+    $('.dot').click(function () {
+      const index = $(this).data('index');
+      currentIndex = index;
+      updateSlider(currentIndex);
+    });
+  });
+</script>
+
+
+</body>
+</html>
